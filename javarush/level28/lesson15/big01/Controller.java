@@ -1,12 +1,8 @@
 package com.javarush.test.level28.lesson15.big01;
 
-import com.javarush.test.level28.lesson15.big01.model.Provider;
-import com.javarush.test.level28.lesson15.big01.vo.Vacancy;
+import com.javarush.test.level28.lesson15.big01.model.Model;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Zlayl on 04.09.2016.
@@ -14,35 +10,16 @@ import java.util.List;
  */
 public class Controller
 {
-    private Provider[] providers;
+    private Model model;
 
-
-    public Controller(Provider... providers)
+    public Controller(Model model)
     {
-        if (providers.length == 0)
-            throw new IllegalArgumentException();
-
-        this.providers = providers;
+        if (model == null) throw new IllegalArgumentException();
+        this.model = model;
     }
 
-    @Override
-    public String toString()
+    public void onCitySelect(String cityName) throws IOException
     {
-        return "Controller{" +
-                "providers=" + Arrays.toString(providers) +
-                '}';
-    }
-
-    public void scan() throws IOException
-    {
-        List<Vacancy> vacancies = new ArrayList<>();
-
-        for (Provider provider : providers){
-            for (Vacancy vacancy : provider.getJavaVacancies("Moscow"))
-            {
-                vacancies.add(vacancy);
-            }
-        }
-        System.out.println(vacancies.size());
+        model.selectCity(cityName);
     }
 }
